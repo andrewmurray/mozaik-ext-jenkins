@@ -29,11 +29,11 @@ class JobStatusProgress extends Component {
     }
 
     render() {
-        const { job } = this.props;
+        const { job, displayName } = this.props;
         const { currentBuild, previousBuild } = this.state;
         const currentStatus = getBuildStatus(currentBuild);
         const previousStatus = getBuildStatus(previousBuild);
-        const title = this.props.title || `Jenkins job ${ job }`;
+        const title = this.props.title || `Jenkins job ${ displayName }`;
 
         const classList = [
             'widget__body__colored',
@@ -62,7 +62,7 @@ class JobStatusProgress extends Component {
                 <div className="jenkins__job-status__current">
                     Build #{currentBuild.number}<br />
                     <a className="jenkins__job-status__current__status" href={currentBuild.url}>
-                        {title}&nbsp;<br />
+                        {displayName}&nbsp;<br />
                         <i className={compact(iconClassList).join(' ')}/>&nbsp;
                         <span className="jenkins__job-status__current__progress-number">
                             {progress < 100 && `${Math.round(progress)}%`}

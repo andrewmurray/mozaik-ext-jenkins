@@ -59,7 +59,7 @@ const client = mozaik => {
 
     const apiMethods = {
         jobs() {
-            return buildRequest('/api/json?tree=jobs[name,lastBuild[number,building,timestamp,result]]&pretty=true')
+            return buildRequest('/api/json?tree=jobs[name,displayName,lastBuild[number,building,timestamp,result]]&pretty=true')
                 .then(res => res.body.jobs)
             ;
         },
@@ -89,6 +89,7 @@ const client = mozaik => {
                                 builds.push(
                                     apiMethods.jobBuild({
                                         job:         job.name,
+                                        displayName: job.displayName,
                                         buildNumber: job[buildType].number
                                     })
                                     .then(build => {
